@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>أمر صرف - باسقات الجزيرة</title>
   
   <script src="https://cdn.tailwindcss.com"></script>
@@ -11,19 +11,23 @@
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&display=swap');
 
     :root {
-      /* اللون الأساسي المأخوذ من الصورة (زيتي/ذهبي) */
-      --brand: #8c7b50; 
+      --brand: #D99A58; 
       --black: #1a1a1a;
     }
 
     body {
       background-color: #f3f4f6;
       color: var(--black);
-      font-family: 'Cairo', sans-serif; /* خط متناسق جداً مع المستندات الرسمية */
+      font-family: 'Cairo', sans-serif;
     }
 
     .brand-text {
       color: var(--brand);
+    }
+
+    input::-webkit-calendar-picker-indicator {
+      opacity: 0.5;
+      cursor: pointer;
     }
 
     @layer utilities {
@@ -36,132 +40,148 @@
         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
       }
 
-      /* تنسيق خاص للجوال */
       @media (max-width: 768px) {
         .print-page {
           width: 100% !important;
           min-height: unset !important;
           margin: 0 !important;
-          padding: 20px !important;
+          padding: 15px !important;
           box-shadow: none !important;
+        }
+        .table-container {
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          width: 100%;
+          margin-bottom: 20px;
+        }
+        .table-inner {
+          min-width: 750px;
         }
       }
 
-      /* إعدادات الطباعة */
       @media print {
-        @page {
-          size: A4 portrait;
-          margin: 0;
-        }
-        body {
-          background: #ffffff !important;
-        }
-        .print-page {
-          width: 100%;
-          margin: 0;
-          padding: 15mm;
-          box-shadow: none !important;
-        }
-        .no-print {
-          display: none !important;
-        }
+        @page { size: A4 portrait; margin: 0; }
+        body { background: #ffffff !important; }
+        .print-page { width: 100%; margin: 0; padding: 15mm; box-shadow: none !important; }
+        .no-print { display: none !important; }
+        .table-container { overflow-x: visible !important; }
+        .table-inner { min-width: 100% !important; }
+        input { border: none !important; background: transparent !important; }
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="text-center mt-8 no-print">
-    <button onclick="window.print()" class="bg-[#8c7b50] text-white px-8 py-2 rounded-md font-bold hover:opacity-90 transition shadow-md">
-      طباعة أمر الصرف
+  <div class="text-center mt-6 mb-4 no-print px-4">
+    <button onclick="window.print()" class="w-full md:w-auto bg-[#D99A58] text-white px-10 py-3 rounded-md font-bold hover:opacity-90 transition shadow-md text-lg">
+      🖨️ طباعة أو حفظ كـ PDF
     </button>
   </div>
 
   <div class="print-page flex flex-col">
-    
     <header class="flex justify-between items-start mb-6">
-      
-      <div class="text-right brand-text font-bold leading-relaxed pt-2">
+      <div class="text-right brand-text font-bold leading-relaxed pt-2 w-1/3">
         <div class="text-xl">باسقات الجزيرة</div>
-        <div class="text-sm mt-1">الرقم الضريبي: 300371572600003</div>
+        <div class="text-sm mt-1">الرقم الضريبي:<br> 300371572600003</div>
       </div>
-
-      <div class="text-center mt-6">
-        <h1 class="text-5xl font-black brand-text tracking-wide">أمر صرف</h1>
+      <div class="text-center mt-6 w-1/3">
+        <h1 class="text-3xl font-black brand-text tracking-wide">أمر صرف</h1>
       </div>
-
-      <div class="text-center brand-text">
-        <svg class="w-16 h-16 mx-auto mb-1 fill-current" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <path d="M50 10 C55 25 65 30 75 35 C60 38 55 30 50 25 C45 30 40 38 25 35 C35 30 45 25 50 10 Z"/>
-          <path d="M50 25 C55 40 70 45 85 50 C65 55 55 45 50 40 C45 45 35 55 15 50 C30 45 45 40 50 25 Z"/>
-          <path d="M47 40 L53 40 L55 80 L45 80 Z"/>
-          <path d="M20 80 Q50 60 80 80 Z" opacity="0.5"/>
-        </svg>
-        <div class="font-bold text-lg leading-none">باسقات الجزيرة</div>
-        <div class="text-[10px] font-bold uppercase mt-1 tracking-widest text-black">Basqat Aljazeera</div>
+      <div class="text-center w-1/3 flex justify-end">
+        <img src="logo.png" alt="باسقات الجزيرة" class="w-40 object-contain" onerror="this.outerHTML='<div class=\'text-xs text-red-500 border p-2\'>يرجى وضع ملف logo.png بجانب هذا الملف</div>'">
       </div>
     </header>
 
     <div class="flex justify-between items-center font-bold mb-2 px-2 text-lg">
-      <div>التاريخ <span class="ml-2 font-normal">2026-06-24</span></div>
-      <div>NO</div>
-    </div>
-
-    <div class="border-[2px] border-black w-full flex flex-col font-bold">
-      
-      <div class="flex border-b-[2px] border-black h-12">
-        <div class="flex-1 p-2 border-l-[2px] border-black flex items-center brand-text text-xl">
-           اصرفوا للمكرم 
-        </div>
-        <div class="w-24 p-2 border-l-[2px] border-black flex justify-center items-center brand-text text-lg">نقدي</div>
-        <div class="w-14 p-2 border-l-[2px] border-black flex justify-center items-center">
-           <div class="w-5 h-5 border-[2px] border-black"></div>
-        </div>
-        <div class="w-24 p-2 border-l-[2px] border-black flex justify-center items-center brand-text text-lg">بضاعة</div>
-        <div class="w-14 p-2 flex justify-center items-center bg-gray-50">
-           <div class="w-5 h-5 border-[2px] border-black flex items-center justify-center">
-             <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path></svg>
-           </div>
-        </div>
-      </div>
-
-      <div class="flex border-b-[2px] border-black text-center brand-text text-lg">
-        <div class="flex-1 p-3 border-l-[2px] border-black flex items-center justify-center">البيان</div>
-        <div class="w-28 p-3 border-l-[2px] border-black flex items-center justify-center">الكمية</div>
-        <div class="w-32 p-2 border-l-[2px] border-black flex flex-col justify-center leading-tight">
-          <span>السعر</span>
-          <span>الفردي</span>
-        </div>
-        <div class="w-40 p-2 flex flex-col justify-center leading-tight">
-          <span>القيمة</span>
-          <span>الإجمالية</span>
-        </div>
-      </div>
-
-      <div class="flex border-b border-black h-10"><div class="flex-1 border-l-[2px] border-black"></div><div class="w-28 border-l-[2px] border-black"></div><div class="w-32 border-l-[2px] border-black"></div><div class="w-40"></div></div>
-      <div class="flex border-b border-black h-10"><div class="flex-1 border-l-[2px] border-black"></div><div class="w-28 border-l-[2px] border-black"></div><div class="w-32 border-l-[2px] border-black"></div><div class="w-40"></div></div>
-      <div class="flex border-b border-black h-10"><div class="flex-1 border-l-[2px] border-black"></div><div class="w-28 border-l-[2px] border-black"></div><div class="w-32 border-l-[2px] border-black"></div><div class="w-40"></div></div>
-      <div class="flex border-b border-black h-10"><div class="flex-1 border-l-[2px] border-black"></div><div class="w-28 border-l-[2px] border-black"></div><div class="w-32 border-l-[2px] border-black"></div><div class="w-40"></div></div>
-      <div class="flex border-b border-black h-10"><div class="flex-1 border-l-[2px] border-black"></div><div class="w-28 border-l-[2px] border-black"></div><div class="w-32 border-l-[2px] border-black"></div><div class="w-40"></div></div>
-      <div class="flex border-b border-black h-10"><div class="flex-1 border-l-[2px] border-black"></div><div class="w-28 border-l-[2px] border-black"></div><div class="w-32 border-l-[2px] border-black"></div><div class="w-40"></div></div>
-      <div class="flex border-b border-black h-10"><div class="flex-1 border-l-[2px] border-black"></div><div class="w-28 border-l-[2px] border-black"></div><div class="w-32 border-l-[2px] border-black"></div><div class="w-40"></div></div>
-      <div class="flex border-b border-black h-10"><div class="flex-1 border-l-[2px] border-black"></div><div class="w-28 border-l-[2px] border-black"></div><div class="w-32 border-l-[2px] border-black"></div><div class="w-40"></div></div>
-      <div class="flex border-b border-black h-10"><div class="flex-1 border-l-[2px] border-black"></div><div class="w-28 border-l-[2px] border-black"></div><div class="w-32 border-l-[2px] border-black"></div><div class="w-40"></div></div>
-      <div class="flex border-b-[2px] border-black h-10"><div class="flex-1 border-l-[2px] border-black"></div><div class="w-28 border-l-[2px] border-black"></div><div class="w-32 border-l-[2px] border-black"></div><div class="w-40"></div></div>
-
-      <div class="flex p-3 brand-text text-xl items-center bg-gray-50">
-         <span class="ml-4 font-black">الإجمالي</span>
-         <div class="flex-1 border-b-2 border-dashed border-black mx-2"></div>
+      <div>التاريخ: <span id="current-date" class="ml-2 font-normal text-gray-700"></span></div>
+      <div class="flex items-center">
+        <span class="text-sm text-gray-500 ml-2">No</span>
+        <span id="receipt-no" class="font-bold text-base text-black"></span>
       </div>
     </div>
 
-    <div class="flex justify-between items-center mt-12 px-6 brand-text font-bold text-lg">
-      <div class="text-center w-40">توقيع المحاسب</div>
-      <div class="text-center w-48">توقيع الموظف المسؤول</div>
-      <div class="text-center w-40">توقيع المستلم</div>
+    <div class="table-container border-[2px] border-black">
+      <div class="table-inner w-full flex flex-col font-bold">
+        <div class="flex border-b-[2px] border-black min-h-[3rem]">
+          <div class="flex-1 p-2 border-l-[2px] border-black flex items-center bg-yellow-50/30 min-w-[300px]">
+             <label class="brand-text text-xl whitespace-nowrap ml-3">اصرفوا للمكرم:</label>
+             <input type="text" list="payees" class="flex-1 bg-transparent border-b border-dashed border-gray-400 outline-none px-2 py-1 text-lg font-bold text-black focus:border-[#D99A58]" placeholder="اختر أو اكتب...">
+             <datalist id="payees">
+               <option value="مستودع القصيم"></option>
+               <option value="محل بريده"></option>
+               <option value="أسواق بسق"></option>
+               <option value="مصنع أبو محمد"></option>
+             </datalist>
+          </div>
+          <div class="flex items-center border-l-[2px] border-black w-32 cursor-pointer hover:bg-gray-50 transition shrink-0">
+            <label class="flex-1 flex justify-center items-center gap-2 w-full h-full cursor-pointer p-2">
+              <span class="brand-text text-lg">نقدي</span>
+              <input type="radio" name="payment_type" value="cash" class="w-5 h-5 accent-[#D99A58] cursor-pointer">
+            </label>
+          </div>
+          <div class="flex items-center w-32 cursor-pointer hover:bg-gray-50 transition shrink-0">
+            <label class="flex-1 flex justify-center items-center gap-2 w-full h-full cursor-pointer p-2">
+              <span class="brand-text text-lg">بضاعة</span>
+              <input type="radio" name="payment_type" value="goods" checked class="w-5 h-5 accent-[#D99A58] cursor-pointer">
+            </label>
+          </div>
+        </div>
+
+        <div class="flex border-b-[2px] border-black text-center brand-text text-lg bg-gray-50">
+          <div class="flex-1 p-3 border-l-[2px] border-black flex items-center justify-center">البيان</div>
+          <div class="w-24 p-3 border-l-[2px] border-black flex items-center justify-center shrink-0">الكمية</div>
+          <div class="w-32 p-2 border-l-[2px] border-black flex flex-col justify-center leading-tight shrink-0">
+            <span>السعر</span>
+            <span>الفردي</span>
+          </div>
+          <div class="w-40 p-2 flex flex-col justify-center leading-tight shrink-0">
+            <span>القيمة</span>
+            <span>الإجمالية</span>
+          </div>
+        </div>
+
+        <script>
+          for(let i=0; i<10; i++) {
+            document.write(`
+              <div class="flex border-b border-black h-10 hover:bg-yellow-50/20">
+                <div class="flex-1 border-l-[2px] border-black"><input type="text" class="w-full h-full bg-transparent outline-none px-2 font-bold text-black"></div>
+                <div class="w-24 border-l-[2px] border-black shrink-0"><input type="text" class="w-full h-full bg-transparent outline-none px-2 text-center font-bold text-black"></div>
+                <div class="w-32 border-l-[2px] border-black shrink-0"><input type="text" class="w-full h-full bg-transparent outline-none px-2 text-center font-bold text-black"></div>
+                <div class="w-40 shrink-0"><input type="text" class="w-full h-full bg-transparent outline-none px-2 text-center font-bold text-black"></div>
+              </div>
+            `);
+          }
+        </script>
+
+        <div class="flex p-3 brand-text text-xl items-center bg-gray-50 border-t border-black">
+           <span class="ml-4 font-black shrink-0">الإجمالي</span>
+           <div class="flex-1 border-b-2 border-dashed border-black mx-2 relative top-1"></div>
+           <div class="w-40 shrink-0"><input type="text" class="w-full bg-transparent outline-none px-2 text-center font-black text-black text-xl" placeholder="................."></div>
+        </div>
+      </div>
     </div>
 
+    <div class="flex justify-between items-center mt-8 px-2 md:px-6 brand-text font-bold text-base md:text-lg">
+      <div class="text-center w-1/3">توقيع المحاسب</div>
+      <div class="text-center w-1/3">توقيع الموظف المسؤول</div>
+      <div class="text-center w-1/3">توقيع المستلم</div>
+    </div>
   </div>
 
+  <script>
+    const dateElement = document.getElementById('current-date');
+    dateElement.innerText = new Date().toISOString().split('T')[0];
+
+    const noElement = document.getElementById('receipt-no');
+    let currentSequence = parseInt(localStorage.getItem('basqat_receipt_no')) || 1;
+    function updateSequenceDisplay() { noElement.innerText = String(currentSequence).padStart(5, '0'); }
+    updateSequenceDisplay();
+    window.onafterprint = function() {
+      currentSequence++;
+      localStorage.setItem('basqat_receipt_no', currentSequence);
+      updateSequenceDisplay();
+    };
+  </script>
 </body>
 </html>
