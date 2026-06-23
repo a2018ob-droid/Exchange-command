@@ -3,51 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>نموذج طباعة A4</title>
+  <title>أمر صرف - باسقات الجزيرة</title>
   
   <script src="https://cdn.tailwindcss.com"></script>
   
   <style type="text/tailwindcss">
-    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&display=swap');
 
     :root {
-      --background: #f5f5f5;
-      --foreground: #1a1a1a;
-      --primary: #1a5c2a;
-      --primary-foreground: #ffffff;
-      --secondary: #e8f5e9;
-      --secondary-foreground: #1a5c2a;
-      --accent: #2e7d32;
-      --accent-foreground: #ffffff;
-      --muted: #f0f0f0;
-      --muted-foreground: #6b7280;
-      --card: #ffffff;
-      --card-foreground: #1a1a1a;
-      --border: #d1d5db;
-      --input: #ffffff;
-      --ring: #2e7d32;
-      --radius: 4px;
-      --font-sans: 'IBM Plex Sans Arabic', sans-serif;
+      /* اللون الأساسي المأخوذ من الصورة (زيتي/ذهبي) */
+      --brand: #8c7b50; 
+      --black: #1a1a1a;
     }
 
-    @layer base {
-      * {
-        box-sizing: border-box;
-        border-color: var(--border);
-      }
-      body {
-        background-color: var(--background);
-        color: var(--foreground);
-        font-family: var(--font-sans);
-        -webkit-font-smoothing: antialiased;
-        direction: rtl;
-      }
-      html {
-        scroll-behavior: smooth;
-      }
-      h1, h2, h3, h4, h5, h6, p {
-        margin: 0;
-      }
+    body {
+      background-color: #f3f4f6;
+      color: var(--black);
+      font-family: 'Cairo', sans-serif; /* خط متناسق جداً مع المستندات الرسمية */
+    }
+
+    .brand-text {
+      color: var(--brand);
     }
 
     @layer utilities {
@@ -55,50 +31,40 @@
         width: 210mm;
         min-height: 297mm;
         background: #ffffff;
-        margin: 40px auto; /* أضفت مسافة عشان تظهر لك كصفحة في المتصفح */
-        padding: 40px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); /* ظل خفيف */
+        margin: 40px auto;
+        padding: 15mm 15mm;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
       }
 
+      /* تنسيق خاص للجوال */
       @media (max-width: 768px) {
         .print-page {
           width: 100% !important;
           min-height: unset !important;
           margin: 0 !important;
-          border-radius: 0 !important;
+          padding: 20px !important;
           box-shadow: none !important;
-          border: none !important;
         }
       }
 
-      .signature-line {
-        border-top: 1px solid #1a1a1a;
-        width: 100%;
-        margin-top: 32px;
-      }
-
-      .no-print {
-        display: block;
-      }
-    }
-
-    /* إعدادات وقت الطباعة (Ctrl+P) */
-    @media print {
-      @page {
-        size: A4 portrait;
-        margin: 8mm 10mm 4mm 10mm;
-      }
-      body {
-        background: #ffffff !important;
-      }
-      .no-print {
-        display: none !important;
-      }
-      .print-page {
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        box-shadow: none !important;
+      /* إعدادات الطباعة */
+      @media print {
+        @page {
+          size: A4 portrait;
+          margin: 0;
+        }
+        body {
+          background: #ffffff !important;
+        }
+        .print-page {
+          width: 100%;
+          margin: 0;
+          padding: 15mm;
+          box-shadow: none !important;
+        }
+        .no-print {
+          display: none !important;
+        }
       }
     }
   </style>
@@ -106,48 +72,93 @@
 <body>
 
   <div class="text-center mt-8 no-print">
-    <button onclick="window.print()" style="background-color: var(--primary);" class="text-white px-6 py-2 rounded-md font-bold hover:opacity-90">
-      طباعة الصفحة
+    <button onclick="window.print()" class="bg-[#8c7b50] text-white px-8 py-2 rounded-md font-bold hover:opacity-90 transition shadow-md">
+      طباعة أمر الصرف
     </button>
   </div>
 
-  <div class="print-page">
+  <div class="print-page flex flex-col">
     
-    <header class="flex justify-between items-center mb-10 border-b-2 pb-4" style="border-color: var(--primary);">
-      <h1 class="text-3xl font-bold" style="color: var(--primary);">نموذج رسمي</h1>
-      <p class="text-sm" style="color: var(--muted-foreground);">التاريخ: ٢٤ يونيو ٢٠٢٦</p>
+    <header class="flex justify-between items-start mb-6">
+      
+      <div class="text-right brand-text font-bold leading-relaxed pt-2">
+        <div class="text-xl">باسقات الجزيرة</div>
+        <div class="text-sm mt-1">الرقم الضريبي: 300371572600003</div>
+      </div>
+
+      <div class="text-center mt-6">
+        <h1 class="text-5xl font-black brand-text tracking-wide">أمر صرف</h1>
+      </div>
+
+      <div class="text-center brand-text">
+        <svg class="w-16 h-16 mx-auto mb-1 fill-current" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50 10 C55 25 65 30 75 35 C60 38 55 30 50 25 C45 30 40 38 25 35 C35 30 45 25 50 10 Z"/>
+          <path d="M50 25 C55 40 70 45 85 50 C65 55 55 45 50 40 C45 45 35 55 15 50 C30 45 45 40 50 25 Z"/>
+          <path d="M47 40 L53 40 L55 80 L45 80 Z"/>
+          <path d="M20 80 Q50 60 80 80 Z" opacity="0.5"/>
+        </svg>
+        <div class="font-bold text-lg leading-none">باسقات الجزيرة</div>
+        <div class="text-[10px] font-bold uppercase mt-1 tracking-widest text-black">Basqat Aljazeera</div>
+      </div>
     </header>
 
-    <main>
-      <h2 class="text-xl font-semibold mb-4">البيانات الأساسية:</h2>
-      <p class="mb-6 leading-relaxed">
-        هذا النص هو مثال على محتوى الصفحة. يمكنك إضافة الجداول، النصوص، أو أي عناصر أخرى هنا. 
-        الكود اللي أرسلته مجهز بشكل ممتاز لاستقبال البيانات وتنسيقها لتكون جاهزة لطباعتها على ورق A4.
-      </p>
+    <div class="flex justify-between items-center font-bold mb-2 px-2 text-lg">
+      <div>التاريخ <span class="ml-2 font-normal">2026-06-24</span></div>
+      <div>NO</div>
+    </div>
 
-      <table class="w-full border-collapse border mb-10 text-center">
-        <thead>
-          <tr style="background-color: var(--secondary); color: var(--secondary-foreground);">
-            <th class="border p-2">الرقم</th>
-            <th class="border p-2">البيان</th>
-            <th class="border p-2">المبلغ</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="border p-2">١</td>
-            <td class="border p-2">خدمات تصميم</td>
-            <td class="border p-2">١٥٠٠</td>
-          </tr>
-        </tbody>
-      </table>
-    </main>
-
-    <div class="flex justify-between mt-20 w-1/2">
-      <div class="w-40 text-center">
-        <p class="mb-8 font-semibold">توقيع المستلم</p>
-        <div class="signature-line"></div>
+    <div class="border-[2px] border-black w-full flex flex-col font-bold">
+      
+      <div class="flex border-b-[2px] border-black h-12">
+        <div class="flex-1 p-2 border-l-[2px] border-black flex items-center brand-text text-xl">
+           اصرفوا للمكرم 
+        </div>
+        <div class="w-24 p-2 border-l-[2px] border-black flex justify-center items-center brand-text text-lg">نقدي</div>
+        <div class="w-14 p-2 border-l-[2px] border-black flex justify-center items-center">
+           <div class="w-5 h-5 border-[2px] border-black"></div>
+        </div>
+        <div class="w-24 p-2 border-l-[2px] border-black flex justify-center items-center brand-text text-lg">بضاعة</div>
+        <div class="w-14 p-2 flex justify-center items-center bg-gray-50">
+           <div class="w-5 h-5 border-[2px] border-black flex items-center justify-center">
+             <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path></svg>
+           </div>
+        </div>
       </div>
+
+      <div class="flex border-b-[2px] border-black text-center brand-text text-lg">
+        <div class="flex-1 p-3 border-l-[2px] border-black flex items-center justify-center">البيان</div>
+        <div class="w-28 p-3 border-l-[2px] border-black flex items-center justify-center">الكمية</div>
+        <div class="w-32 p-2 border-l-[2px] border-black flex flex-col justify-center leading-tight">
+          <span>السعر</span>
+          <span>الفردي</span>
+        </div>
+        <div class="w-40 p-2 flex flex-col justify-center leading-tight">
+          <span>القيمة</span>
+          <span>الإجمالية</span>
+        </div>
+      </div>
+
+      <div class="flex border-b border-black h-10"><div class="flex-1 border-l-[2px] border-black"></div><div class="w-28 border-l-[2px] border-black"></div><div class="w-32 border-l-[2px] border-black"></div><div class="w-40"></div></div>
+      <div class="flex border-b border-black h-10"><div class="flex-1 border-l-[2px] border-black"></div><div class="w-28 border-l-[2px] border-black"></div><div class="w-32 border-l-[2px] border-black"></div><div class="w-40"></div></div>
+      <div class="flex border-b border-black h-10"><div class="flex-1 border-l-[2px] border-black"></div><div class="w-28 border-l-[2px] border-black"></div><div class="w-32 border-l-[2px] border-black"></div><div class="w-40"></div></div>
+      <div class="flex border-b border-black h-10"><div class="flex-1 border-l-[2px] border-black"></div><div class="w-28 border-l-[2px] border-black"></div><div class="w-32 border-l-[2px] border-black"></div><div class="w-40"></div></div>
+      <div class="flex border-b border-black h-10"><div class="flex-1 border-l-[2px] border-black"></div><div class="w-28 border-l-[2px] border-black"></div><div class="w-32 border-l-[2px] border-black"></div><div class="w-40"></div></div>
+      <div class="flex border-b border-black h-10"><div class="flex-1 border-l-[2px] border-black"></div><div class="w-28 border-l-[2px] border-black"></div><div class="w-32 border-l-[2px] border-black"></div><div class="w-40"></div></div>
+      <div class="flex border-b border-black h-10"><div class="flex-1 border-l-[2px] border-black"></div><div class="w-28 border-l-[2px] border-black"></div><div class="w-32 border-l-[2px] border-black"></div><div class="w-40"></div></div>
+      <div class="flex border-b border-black h-10"><div class="flex-1 border-l-[2px] border-black"></div><div class="w-28 border-l-[2px] border-black"></div><div class="w-32 border-l-[2px] border-black"></div><div class="w-40"></div></div>
+      <div class="flex border-b border-black h-10"><div class="flex-1 border-l-[2px] border-black"></div><div class="w-28 border-l-[2px] border-black"></div><div class="w-32 border-l-[2px] border-black"></div><div class="w-40"></div></div>
+      <div class="flex border-b-[2px] border-black h-10"><div class="flex-1 border-l-[2px] border-black"></div><div class="w-28 border-l-[2px] border-black"></div><div class="w-32 border-l-[2px] border-black"></div><div class="w-40"></div></div>
+
+      <div class="flex p-3 brand-text text-xl items-center bg-gray-50">
+         <span class="ml-4 font-black">الإجمالي</span>
+         <div class="flex-1 border-b-2 border-dashed border-black mx-2"></div>
+      </div>
+    </div>
+
+    <div class="flex justify-between items-center mt-12 px-6 brand-text font-bold text-lg">
+      <div class="text-center w-40">توقيع المحاسب</div>
+      <div class="text-center w-48">توقيع الموظف المسؤول</div>
+      <div class="text-center w-40">توقيع المستلم</div>
     </div>
 
   </div>
